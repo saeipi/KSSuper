@@ -21,9 +21,29 @@ class KSApplication(object):
         my_export = KSExport()
         my_export.export_to_csv(str_sql,str_out_path,str_out_name)
 
+    def update_tag(self,str_text_tag_path):
+        '''
+        更新tag
+        '''
+        batch_sql = KSBatchSql()
+        batch_sql.execute_txt_sqls(str_text_tag_path)
+
+    def execute_select(self,str_xls_sql_path,str_out_path):
+        batch_sql = KSBatchSql()
+        batch_sql.execute_xls_sqls(str_xls_sql_path, str_out_path)
+        pass
+
+
+str_parent_path = os.path.dirname(os.path.realpath(__file__))
+str_xls_sql_path = str_parent_path + "/Resources/SQL/job_sql.xls"
+str_job_tag_path = str_parent_path + "/Resources/SQL/job_tags.txt"
+print(str_xls_sql_path)
+print(str_job_tag_path)
+
 '''
 1、导入数据
 '''
+print(os.path.abspath("../Resources/SQL/job_tags.txt"))
 app = KSApplication()
 app.import_csv_path("/Users/saeipi/Desktop/jobs")
 
@@ -35,15 +55,10 @@ app.import_csv_path("/Users/saeipi/Desktop/jobs")
 '''
 2、更新tag
 '''
-batch_sql = KSBatchSql()
-str_txt_sql_path = os.path.abspath("../Resources/SQL/job_tags.txt")
-batch_sql = KSBatchSql()
-batch_sql.execute_txt_sqls(str_txt_sql_path)
+app.update_tag(str_job_tag_path)
 
 '''
 3、查询并导出数据
 '''
-str_xls_sql_path = os.path.abspath("../Resources/SQL/job_sql.xls")
 str_out_path = "/Users/saeipi/Desktop/jobs"
-batch_sql.execute_xls_sqls(str_xls_sql_path, str_out_path)
-
+app.execute_select(str_xls_sql_path,str_out_path)
