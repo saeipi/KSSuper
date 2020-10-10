@@ -18,8 +18,14 @@ class KSBatchSql(object):
     def execute_txt_sqls(self, str_sql_path):
         for line in open(str_sql_path):
             sql = line.strip()
-            self.mysql.cursor.execute(sql)
-            self.mysql.conn.commit()
+            if len(sql) == 0:
+                break
+            try:
+                self.mysql.cursor.execute(sql)
+                self.mysql.conn.commit()
+            except:
+                print("sql执行错误:"+sql)
+        self.mysql.close_cursor()
 
     def execute_xls_sqls(self, str_sql_path, str_out_path):
         excel_sqls = xlrd.open_workbook(str_sql_path)
