@@ -25,7 +25,7 @@ class KSImport(object):
                 char = []
                 for item in range(len(columns)):  # 开始循环获取文件格式类型并将其转换成mysql文件格式类型
                     if 'object' == str(types[item]):
-                        if columns[item] == "description":
+                        if columns[item] == "description" or columns[item] == "comment":
                         #if len(f[columns[item]][item]) > 255:
                             char = '`' + columns[item] + '`' + ' LONGTEXT'  # 临时处理
                         else:
