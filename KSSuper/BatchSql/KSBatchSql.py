@@ -36,10 +36,10 @@ class KSBatchSql(object):
             self.export_csv(sql, str_out_path, out_name+".csv")
 
 # batch_sql = KSBatchSql()
-# str_sql_path = os.path.abspath("../Resources/SQL/job_sql.xls")
+# str_xls_sql_path = os.path.abspath("../Resources/SQL/job_sql.xls")
 # str_out_path = "/Users/saeipi/Desktop/jobs"
-# batch_sql.execute_xls_sqls(str_sql_path, str_out_path)
-
+# batch_sql.execute_xls_sqls(str_xls_sql_path, str_out_path)
+#
 # str_txt_sql_path = os.path.abspath("../Resources/SQL/job_tags.txt")
 # batch_sql = KSBatchSql()
 # batch_sql.execute_txt_sqls(str_txt_sql_path)
