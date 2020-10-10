@@ -1,0 +1,56 @@
+{
+  "type": "index_parallel",
+  "spec": {
+    "dataSchema": {
+      "dataSource": "some_datasource",
+      "parser": {
+        "parseSpec": {
+          "format": "timeAndDims",
+          "dimensionsSpec": {
+            "dimensionExclusions": [],
+            "dimensions": [
+            ]
+          },
+          "timestampSpec": {
+            "format": "auto",
+            "column": "ts"
+          }
+        }
+      },
+      "metricsSpec": [],
+      "granularitySpec": {
+        "type": "uniform",
+        "segmentGranularity": "DAY",
+        "queryGranularity": {
+          "type": "none"
+        },
+        "rollup": false,
+        "intervals": null
+      },
+      "transformSpec": {
+        "filter": null,
+        "transforms": []
+      }
+    },
+    "ioConfig": {
+      "type": "index_parallel",
+      "firehose": {
+        "type": "sql",
+        "database": {
+          "type": "mysql",
+          "connectorConfig": {
+            "connectURI": "jdbc:mysql://127.0.0.1:3306/druid",
+            "user": "root",
+            "password": "ksert888"
+          }
+        },
+        "sqls": [
+          "SELECT * FROM interviews"
+        ]
+      }
+    },
+    "tuningconfig": {
+      "type": "index_parallel"
+    }
+  }
+}

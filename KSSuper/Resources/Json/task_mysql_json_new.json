@@ -1,0 +1,206 @@
+{
+  "type": "index_parallel",
+  "spec": {
+    "dataSchema": {
+      "dataSource": "mysqlTest2",
+      "timestampSpec": {
+        "column": "log_time",
+        "format": "millis"
+      },
+      "dimensionsSpec": {
+        "dimensions": [
+          "client",
+          "platform",
+          "hd",
+          "is_50mclient",
+          "is_amazon",
+          "reactive_log_time",
+          "country",
+          "tracker",
+          "ip",
+          "version",
+          "appVersion",
+          "start_game",
+          "network_name",
+          "ad_style",
+          {
+            "name": "id",
+            "type": "long"
+          },
+          {
+            "name": "uuid",
+            "type": "long"
+          },
+          {
+            "name": "user_id",
+            "type": "long"
+          },
+          {
+            "name": "server_id",
+            "type": "long"
+          },
+          {
+            "name": "active_log_time",
+            "type": "long"
+          },
+          {
+            "name": "reg_time",
+            "type": "long"
+          },
+          {
+            "name": "tracker_id",
+            "type": "long"
+          },
+          {
+            "name": "tid",
+            "type": "long"
+          },
+          {
+            "name": "drr_daily",
+            "type": "long"
+          },
+          {
+            "name": "drr_weekly",
+            "type": "long"
+          },
+          {
+            "name": "drr_monthly",
+            "type": "long"
+          },
+          {
+            "name": "online_time",
+            "type": "long"
+          },
+          {
+            "name": "ram",
+            "type": "long"
+          }
+        ]
+      },
+      "metricsSpec": [
+        {
+          "name": "count",
+          "type": "count"
+        }
+      ],
+      "granularitySpec": {
+        "type": "uniform",
+        "segmentGranularity": "DAY",
+        "queryGranularity": "HOUR",
+        "rollup": true,
+        "intervals": null
+      },
+      "transformSpec": {
+        "filter": null,
+        "transforms": []
+      }
+    },
+    "ioConfig": {
+      "type": "index_parallel",
+      "inputSource": {
+        "type": "sql",
+        "sqls": [
+          "select id,uuid,user_id,server_id,client,platform,hd,is_50mclient,is_amazon,log_time,active_log_time,reactive_log_time,reg_time,country,tracker,tracker_id,ip,version,appVersion,tid,drr_daily,drr_weekly,drr_monthly,start_game,online_time,ram,network_name,ad_style from funnel_drr_zkf limit 1000"
+        ],
+        "foldCase": false,
+        "database": {
+          "type": "mysql",
+          "connectorConfig": {
+            "createTables": true,
+            "host": "localhost",
+            "port": 3306,
+            "connectURI": "jdbc:mysql://10.17.2.240:3306/bigdata?useSSL=false&zeroDateTimeBehavior=convertToNull",
+            "user": "bigdata",
+            "password": "bigdata2020",
+            "dbcp": null
+          }
+        }
+      },
+      "inputFormat": {
+        "type": "regex",
+        "pattern": "(.*)",
+        "columns": [
+          "id",
+          "uuid",
+          "user_id",
+          "server_id",
+          "client",
+          "platform",
+          "hd",
+          "is_50mclient",
+          "is_amazon",
+          "log_time",
+          "active_log_time",
+          "reactive_log_time",
+          "reg_time",
+          "country",
+          "tracker",
+          "tracker_id",
+          "ip",
+          "version",
+          "appVersion",
+          "tid",
+          "drr_daily",
+          "drr_weekly",
+          "drr_monthly",
+          "start_game",
+          "online_time",
+          "ram",
+          "network_name",
+          "ad_style"
+        ]
+      }
+    },
+    "tuningConfig": {
+      "type": "index_parallel",
+      "maxRowsPerSegment": 5000000,
+      "maxRowsInMemory": 1000000,
+      "maxBytesInMemory": 0,
+      "maxTotalRows": null,
+      "numShards": null,
+      "splitHintSpec": null,
+      "partitionsSpec": {
+        "type": "dynamic",
+        "maxRowsPerSegment": 5000000,
+        "maxTotalRows": null
+      },
+      "indexSpec": {
+        "bitmap": {
+          "type": "roaring",
+          "compressRunOnSerialization": true
+        },
+        "dimensionCompression": "lz4",
+        "metricCompression": "lz4",
+        "longEncoding": "longs",
+        "segmentLoader": null
+      },
+      "indexSpecForIntermediatePersists": {
+        "bitmap": {
+          "type": "roaring",
+          "compressRunOnSerialization": true
+        },
+        "dimensionCompression": "lz4",
+        "metricCompression": "lz4",
+        "longEncoding": "longs",
+        "segmentLoader": null
+      },
+      "maxPendingPersists": 0,
+      "forceGuaranteedRollup": false,
+      "reportParseExceptions": false,
+      "pushTimeout": 0,
+      "segmentWriteOutMediumFactory": null,
+      "maxNumConcurrentSubTasks": 1,
+      "maxRetry": 3,
+      "taskStatusCheckPeriodMs": 1000,
+      "chatHandlerTimeout": "PT10S",
+      "chatHandlerNumRetries": 5,
+      "maxNumSegmentsToMerge": 100,
+      "totalNumMergeTasks": 10,
+      "logParseExceptions": false,
+      "maxParseExceptions": 2147483647,
+      "maxSavedParseExceptions": 1000,
+      "buildV9Directly": true,
+      "partitionDimensions": []
+    }
+  }
+}
