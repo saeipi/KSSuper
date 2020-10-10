@@ -40,24 +40,26 @@ class KSBatchSql(object):
         sql_file = fd.read()
         fd.close()
         sqlCommands = sql_file.split(';')
+
         for command in sqlCommands:
             try:
                 self.mysql.cursor.execute(command)
             except Exception as msg:
                 print(msg)
 
+        self.mysql.close_cursor()
+
     def execute_file(self, str_sql_file):
         '''
-        读取整个文件
-        :param str_sql_file:
-        :return:
+        读取整个sql文件
         '''
         with open(str_sql_file, "r") as f:
-            data = f.read()
+            str_sql = f.read()
             try:
-                self.mysql.cursor.execute(data.strip())
+                self.mysql.cursor.execute(str_sql)
             except Exception as msg:
                 print(msg)
+        self.mysql.close_cursor()
 
 # batch_sql = KSBatchSql()
 # str_xls_sql_path = os.path.abspath("../Resources/SQL/job_sql.xls")
