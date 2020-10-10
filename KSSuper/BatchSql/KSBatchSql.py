@@ -22,7 +22,7 @@ class KSBatchSql(object):
             out_name = sheet.cell(int(index), 0).value
             self.export_csv(sql, str_out_path, out_name+".csv")
 
-batch_sql = KSBatchSql()
-str_sql_path = os.path.abspath("../Resources/SQL/job_sql.xls")
-str_out_path = "/Users/saeipi/Desktop/jobs"
-batch_sql.execute_sqls(str_sql_path, str_out_path)
+# batch_sql = KSBatchSql()
+# str_sql_path = os.path.abspath("../Resources/SQL/job_sql.xls")
+# str_out_path = "/Users/saeipi/Desktop/jobs"
+# batch_sql.execute_sqls(str_sql_path, str_out_path)
