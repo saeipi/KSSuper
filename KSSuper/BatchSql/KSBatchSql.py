@@ -74,4 +74,3 @@ class KSBatchSql(object):
 # batch_sql = KSBatchSql()
 # print(sql_path)
 # batch_sql.execute_file(sql_path)
-
