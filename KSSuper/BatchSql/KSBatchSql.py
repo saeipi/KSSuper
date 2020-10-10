@@ -35,6 +35,30 @@ class KSBatchSql(object):
             out_name = sheet.cell(int(index), 0).value
             self.export_csv(sql, str_out_path, out_name+".csv")
 
+    def execute_sql_file(self, str_sql_file):
+        fd = open(str_sql_file, 'r', encoding='utf-8')
+        sql_file = fd.read()
+        fd.close()
+        sqlCommands = sql_file.split(';')
+        for command in sqlCommands:
+            try:
+                self.mysql.cursor.execute(command)
+            except Exception as msg:
+                print(msg)
+
+    def execute_file(self, str_sql_file):
+        '''
+        读取整个文件
+        :param str_sql_file:
+        :return:
+        '''
+        with open(str_sql_file, "r") as f:
+            data = f.read()
+            try:
+                self.mysql.cursor.execute(data.strip())
+            except Exception as msg:
+                print(msg)
+
 # batch_sql = KSBatchSql()
 # str_xls_sql_path = os.path.abspath("../Resources/SQL/job_sql.xls")
 # str_out_path = "/Users/saeipi/Desktop/jobs"
@@ -43,3 +67,9 @@ class KSBatchSql(object):
 # str_txt_sql_path = os.path.abspath("../Resources/SQL/job_tags.txt")
 # batch_sql = KSBatchSql()
 # batch_sql.execute_txt_sqls(str_txt_sql_path)
+
+# sql_path = os.path.abspath("../Resources/SQL/export_sql.sql")
+# batch_sql = KSBatchSql()
+# print(sql_path)
+# batch_sql.execute_file(sql_path)
+
