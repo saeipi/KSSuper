@@ -2,6 +2,7 @@ import os
 from Import.KSImport import KSImport
 from Export.KSExport import KSExport
 from BatchSql.KSBatchSql import KSBatchSql
+from Requests.KSDruidRequest import KSDruidRequest
 
 class KSApplication(object):
     def __init__(self):
@@ -37,11 +38,21 @@ class KSApplication(object):
         '''
         batch_sql = KSBatchSql()
         batch_sql.execute_xls_sqls(str_xls_sql_path, str_out_path)
+
+    def request_druid_task_callback(self,int_status_code,str_content):
+        print("druid 任务回调")
+        pass
+
+    def request_druid_task(self,str_json_path,base_dir,data_source):
+        req = KSDruidRequest()
+
+        req.send_request(str_json_path, base_dir, data_source,self.request_druid_task_callback)
         pass
 
 str_parent_path = os.path.dirname(os.path.realpath(__file__))
 str_xls_sql_path = str_parent_path + "/Resources/SQL/job_sql.xls"
 str_job_tag_path = str_parent_path + "/Resources/SQL/job_tags.txt"
+str_json_path = str_parent_path + "/Resources/Json/task_json.json"
 print(str_xls_sql_path)
 print(str_job_tag_path)
 
@@ -67,3 +78,10 @@ app.update_tag(str_job_tag_path)
 '''
 str_out_path = "/Users/saeipi/Desktop/jobs"
 app.execute_select(str_xls_sql_path, str_out_path)
+
+'''
+4、提交任务
+'''
+base_dir = "/home/sa/apache-druid/datas/level"
+data_source = "ks_test_data_03"
+app.request_druid_task(str_json_path,base_dir,data_source)
