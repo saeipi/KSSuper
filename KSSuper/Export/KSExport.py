@@ -38,6 +38,7 @@ class KSExport(object):
             results = self.mysql.cursor.fetchall()
             df_file = pd.DataFrame(results)
             df_file.to_csv(filename, index=False)
+        print(str_out_name+":导出成功")
 
 # my_export = KSExport()
 # sql = "SELECT * FROM Orders"
