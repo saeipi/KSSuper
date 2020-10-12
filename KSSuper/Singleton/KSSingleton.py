@@ -17,7 +17,7 @@ class KSSingleton(object):
         return self.dict_propertys.get(static_key_mysql)
 
     def init_mysql(self):
-        mysql = KSMySQL()
+        mysql = KSMySQL() # KSMySQL(str_db='druid')
         mysql.connect()
         self.dict_propertys[static_key_mysql] = mysql
         return mysql

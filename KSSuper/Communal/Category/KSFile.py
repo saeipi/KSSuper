@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import xlrd
 
 class KSFile(object):
 
@@ -30,3 +31,11 @@ class KSFile(object):
         if is_exists:
             df_data = pd.read_csv(str_path)
             return df_data
+
+    @staticmethod
+    def read_xls_sql(str_path,column):
+        excel_sqls = xlrd.open_workbook(str_path)
+        sheet = excel_sqls.sheet_by_index(0)
+        list_res = [str(sheet.cell_value(i, column)) for i in range(column, sheet.nrows)]
+        return list_res
+

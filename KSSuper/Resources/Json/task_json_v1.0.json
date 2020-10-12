@@ -2,97 +2,73 @@
   "type": "index_parallel",
   "spec": {
     "dataSchema": {
-      "dataSource": "mysqlTest2",
+      "dataSource": "data_source_name",
       "timestampSpec": {
-        "column": "log_time",
-        "format": "millis"
+        "column": "timestamp",
+        "format": "auto"
       },
       "dimensionsSpec": {
         "dimensions": [
-          "client",
-          "platform",
-          "hd",
-          "is_50mclient",
-          "is_amazon",
-          "reactive_log_time",
-          "country",
-          "tracker",
-          "ip",
-          "version",
-          "appVersion",
-          "start_game",
-          "network_name",
-          "ad_style",
+          "city",
+          "hire_mode",
+          "job_title",
+          "name",
+          "opened_at",
+          "receive_resume",
+          "source",
+          "source_type",
+          "tags",
+          "is_intern",
           {
-            "name": "id",
-            "type": "long"
+            "name": "interview_status",
+            "type": "string"
           },
           {
-            "name": "uuid",
-            "type": "long"
+            "name": "interview_2_status",
+            "type": "string"
           },
           {
-            "name": "user_id",
-            "type": "long"
+            "name": "offer_application",
+            "type": "string"
           },
           {
-            "name": "server_id",
-            "type": "long"
+            "name": "offer_reply_status",
+            "type": "string"
           },
           {
-            "name": "active_log_time",
-            "type": "long"
+            "name": "offer_send",
+            "type": "string"
           },
           {
-            "name": "reg_time",
-            "type": "long"
+            "name": "frist_filter_status",
+            "type": "string"
           },
           {
-            "name": "tracker_id",
-            "type": "long"
+            "name": "department_filter_status",
+            "type": "string"
           },
           {
-            "name": "tid",
-            "type": "long"
-          },
-          {
-            "name": "drr_daily",
-            "type": "long"
-          },
-          {
-            "name": "drr_weekly",
-            "type": "long"
-          },
-          {
-            "name": "drr_monthly",
-            "type": "long"
-          },
-          {
-            "name": "online_time",
-            "type": "long"
-          },
-          {
-            "name": "ram",
-            "type": "long"
+            "name": "entry",
+            "type": "string"
           }
         ]
       },
-      "metricsSpec": [
-        {
-          "name": "count",
-          "type": "count"
-        }
-      ],
       "granularitySpec": {
         "type": "uniform",
         "segmentGranularity": "DAY",
-        "queryGranularity": "HOUR",
+        "queryGranularity": "NONE",
         "rollup": true,
         "intervals": null
       },
       "transformSpec": {
         "filter": null,
-        "transforms": []
+        "transforms": [
+          {
+            "type": "expression",
+            "name": "tags",
+            "expression": "case_simple(\"tags\",'',array('无特殊标签岗位'),string_to_array(\"tags\",','))"
+          }
+        ]
       }
     },
     "ioConfig": {
@@ -100,56 +76,46 @@
       "inputSource": {
         "type": "sql",
         "sqls": [
-          "select id,uuid,user_id,server_id,client,platform,hd,is_50mclient,is_amazon,log_time,active_log_time,reactive_log_time,reg_time,country,tracker,tracker_id,ip,version,appVersion,tid,drr_daily,drr_weekly,drr_monthly,start_game,online_time,ram,network_name,ad_style from funnel_drr_zkf limit 1000"
+          "SELECT * FROM Orders",
+          "SELECT * FROM Persons"
         ],
         "foldCase": false,
         "database": {
           "type": "mysql",
           "connectorConfig": {
             "createTables": true,
-            "host": "localhost",
+            "host": "127.0.0.1",
             "port": 3306,
-            "connectURI": "jdbc:mysql://127.0.0.1:3306/bigdata?useSSL=false&zeroDateTimeBehavior=convertToNull",
+            "connectURI": "jdbc:mysql://127.0.0.1:3306/druid?useSSL=false&zeroDateTimeBehavior=convertToNull",
             "user": "root",
             "password": "ksert888",
             "dbcp": null
           }
-        }
-      },
+        }},
       "inputFormat": {
         "type": "regex",
         "pattern": "(.*)",
         "columns": [
-          "id",
-          "uuid",
-          "user_id",
-          "server_id",
-          "client",
-          "platform",
-          "hd",
-          "is_50mclient",
-          "is_amazon",
-          "log_time",
-          "active_log_time",
-          "reactive_log_time",
-          "reg_time",
-          "country",
-          "tracker",
-          "tracker_id",
-          "ip",
-          "version",
-          "appVersion",
-          "tid",
-          "drr_daily",
-          "drr_weekly",
-          "drr_monthly",
-          "start_game",
-          "online_time",
-          "ram",
-          "network_name",
-          "ad_style"
-        ]
-      }
+          "city",
+          "hire_mode",
+          "job_title",
+          "name",
+          "opened_at",
+          "receive_resume",
+          "source",
+          "source_type",
+          "tags",
+          "is_intern",
+          "interview_status",
+          "interview_2_status",
+          "offer_application",
+          "offer_reply_status",
+          "offer_send",
+          "frist_filter_status",
+          "department_filter_status",
+          "entry"
+        ]},
+      "appendToExisting": false
     },
     "tuningConfig": {
       "type": "index_parallel",
@@ -201,6 +167,5 @@
       "maxSavedParseExceptions": 1000,
       "buildV9Directly": true,
       "partitionDimensions": []
-    }
-  }
+    }}
 }

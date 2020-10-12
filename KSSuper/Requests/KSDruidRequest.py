@@ -1,7 +1,7 @@
 import requests
 import json
 import os
-
+from Communal.Category.KSFile import KSFile
 class KSDruidRequest(object):
 
     def __init__(self):
@@ -18,7 +18,7 @@ class KSDruidRequest(object):
         with open(str_json_path, 'r', encoding='utf8')as fp:
             json_data = json.load(fp)
             json_data["spec"]["dataSchema"]["dataSource"] = str_data_source
-            json_data["spec"]["ioConfig"]["firehose"]["sqls"] = list_sqls
+            json_data["spec"]["ioConfig"]["inputSource"]["sqls"] = list_sqls
             print(json_data)
             return json_data
 
@@ -31,7 +31,8 @@ class KSDruidRequest(object):
                 },
                 data=json.dumps(self.request_body(str_json_path,str_base_dir,str_data_source))
             )
-            callback(response.status_code,response.content)
+            if callback:
+                callback(response.status_code,response.content)
             print('Response HTTP Status Code: {status_code}'.format(
                 status_code=response.status_code))
             print('Response HTTP Response Body: {content}'.format(
@@ -64,9 +65,11 @@ req = KSDruidRequest()
 # data_source = "ks_test_data_02"
 # req.send_request(str_json_path, base_dir, data_source,None)
 
-str_json_path = os.path.abspath("../Resources/Json/task_mysql_json.json")
-data_source = "ks_test_data_02"
-list_sqls = ["SELECT * FROM interviews",
-             "SELECT * FROM jobs",
-             "SELECT * FROM candidates"]
+str_json_path = os.path.abspath("../Resources/Json/task_json_v1.0.json")
+data_source = "ks_test_data_09"
+
+str_xls_sql_path = os.path.abspath("../Resources/SQL/job_sql.xls")
+list_sqls = KSFile.read_xls_sql(str_xls_sql_path,1)
+print(list_sqls)
+#list_sqls = ["SELECT * FROM Orders","SELECT * FROM Persons"]
 req.send_mysql_request(str_json_path,data_source,list_sqls,None)

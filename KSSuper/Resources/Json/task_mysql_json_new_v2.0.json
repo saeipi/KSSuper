@@ -2,79 +2,17 @@
   "type": "index_parallel",
   "spec": {
     "dataSchema": {
-      "dataSource": "mysqlTest2",
+      "dataSource": "data_source_name",
       "timestampSpec": {
-        "column": "log_time",
-        "format": "millis"
+        "column": "time",
+        "format": "auto"
       },
       "dimensionsSpec": {
         "dimensions": [
-          "client",
-          "platform",
-          "hd",
-          "is_50mclient",
-          "is_amazon",
-          "reactive_log_time",
-          "country",
-          "tracker",
-          "ip",
-          "version",
-          "appVersion",
-          "start_game",
-          "network_name",
-          "ad_style",
-          {
-            "name": "id",
-            "type": "long"
-          },
-          {
-            "name": "uuid",
-            "type": "long"
-          },
-          {
-            "name": "user_id",
-            "type": "long"
-          },
-          {
-            "name": "server_id",
-            "type": "long"
-          },
-          {
-            "name": "active_log_time",
-            "type": "long"
-          },
-          {
-            "name": "reg_time",
-            "type": "long"
-          },
-          {
-            "name": "tracker_id",
-            "type": "long"
-          },
-          {
-            "name": "tid",
-            "type": "long"
-          },
-          {
-            "name": "drr_daily",
-            "type": "long"
-          },
-          {
-            "name": "drr_weekly",
-            "type": "long"
-          },
-          {
-            "name": "drr_monthly",
-            "type": "long"
-          },
-          {
-            "name": "online_time",
-            "type": "long"
-          },
-          {
-            "name": "ram",
-            "type": "long"
-          }
+          "time",
+          "Id_O",
+          "OrderNo",
+          "Id_P"
         ]
       },
       "metricsSpec": [
@@ -100,16 +38,16 @@
       "inputSource": {
         "type": "sql",
         "sqls": [
-          "select id,uuid,user_id,server_id,client,platform,hd,is_50mclient,is_amazon,log_time,active_log_time,reactive_log_time,reg_time,country,tracker,tracker_id,ip,version,appVersion,tid,drr_daily,drr_weekly,drr_monthly,start_game,online_time,ram,network_name,ad_style from funnel_drr_zkf limit 1000"
+          "SELECT * FROM Orders;"
         ],
         "foldCase": false,
         "database": {
           "type": "mysql",
           "connectorConfig": {
             "createTables": true,
-            "host": "localhost",
+            "host": "127.0.0.1",
             "port": 3306,
-            "connectURI": "jdbc:mysql://127.0.0.1:3306/bigdata?useSSL=false&zeroDateTimeBehavior=convertToNull",
+            "connectURI": "jdbc:mysql://127.0.0.1:3306/druid?useSSL=false&zeroDateTimeBehavior=convertToNull",
             "user": "root",
             "password": "ksert888",
             "dbcp": null
@@ -120,34 +58,10 @@
         "type": "regex",
         "pattern": "(.*)",
         "columns": [
-          "id",
-          "uuid",
-          "user_id",
-          "server_id",
-          "client",
-          "platform",
-          "hd",
-          "is_50mclient",
-          "is_amazon",
-          "log_time",
-          "active_log_time",
-          "reactive_log_time",
-          "reg_time",
-          "country",
-          "tracker",
-          "tracker_id",
-          "ip",
-          "version",
-          "appVersion",
-          "tid",
-          "drr_daily",
-          "drr_weekly",
-          "drr_monthly",
-          "start_game",
-          "online_time",
-          "ram",
-          "network_name",
-          "ad_style"
+          "Id_O",
+          "OrderNo",
+          "Id_P",
+          "time"
         ]
       }
     },

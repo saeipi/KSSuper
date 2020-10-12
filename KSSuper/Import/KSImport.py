@@ -65,3 +65,8 @@ class KSImport(object):
 
         self.mysql.close_cursor()
         print('文件导入数据库完成！一共导入了 {} 个CSV文件。'.format(i))
+
+# imp = KSImport()
+# str_path = "/Users/saeipi/Desktop/MyDatabase/928data/source"
+# imp.import_csv_path(str_path)
+
