@@ -1,0 +1,147 @@
+{
+  "type": "index_parallel",
+  "spec": {
+    "dataSchema": {
+      "dataSource": "data_source_name",
+      "timestampSpec": {
+        "column": "timestamp",
+        "format": "auto"
+      },
+      "dimensionsSpec": {
+        "dimensions": [
+          "city",
+          "hire_mode",
+          "job_title",
+          "name",
+          "opened_at",
+          "receive_resume",
+          "source",
+          "source_type",
+          "tags",
+          "is_intern",
+          "interview_status",
+          "interview_2_status",
+          "offer_application",
+          "offer_reply_status",
+          "offer_send",
+          "frist_filter_status",
+          "department_filter_status",
+          "entry"
+        ]
+      },
+      "granularitySpec": {
+        "type": "uniform",
+        "segmentGranularity": "DAY",
+        "queryGranularity": "NONE",
+        "rollup": true,
+        "intervals": null
+      },
+      "transformSpec": {
+        "filter": null,
+        "transforms": [
+          {
+            "type": "expression",
+            "name": "tags",
+            "expression": "case_simple(\"tags\",'',array('无特殊标签岗位'),string_to_array(\"tags\",','))"
+          }
+        ]
+      }
+    },
+    "ioConfig": {
+      "type": "index_parallel",
+      "inputSource": {
+        "type": "sql",
+        "sqls": [
+          "SELECT * FROM Orders",
+          "SELECT * FROM Persons"
+        ],
+        "foldCase": false,
+        "database": {
+          "type": "mysql",
+          "connectorConfig": {
+            "createTables": true,
+            "host": "127.0.0.1",
+            "port": 3306,
+            "connectURI": "jdbc:mysql://127.0.0.1:3306/druid?useSSL=false&zeroDateTimeBehavior=convertToNull",
+            "user": "root",
+            "password": "ksert888",
+            "dbcp": null
+          }
+        }},
+      "inputFormat": {
+        "type": "regex",
+        "pattern": "(.*)",
+        "columns": [
+          "city",
+          "hire_mode",
+          "job_title",
+          "name",
+          "opened_at",
+          "receive_resume",
+          "source",
+          "source_type",
+          "tags",
+          "is_intern",
+          "interview_status",
+          "interview_2_status",
+          "offer_application",
+          "offer_reply_status",
+          "offer_send",
+          "frist_filter_status",
+          "department_filter_status",
+          "entry"
+        ]},
+      "appendToExisting": false
+    },
+    "tuningConfig": {
+      "type": "index_parallel",
+      "maxRowsPerSegment": 5000000,
+      "maxRowsInMemory": 1000000,
+      "maxBytesInMemory": 0,
+      "maxTotalRows": null,
+      "numShards": null,
+      "splitHintSpec": null,
+      "partitionsSpec": {
+        "type": "dynamic",
+        "maxRowsPerSegment": 5000000,
+        "maxTotalRows": null
+      },
+      "indexSpec": {
+        "bitmap": {
+          "type": "roaring",
+          "compressRunOnSerialization": true
+        },
+        "dimensionCompression": "lz4",
+        "metricCompression": "lz4",
+        "longEncoding": "longs",
+        "segmentLoader": null
+      },
+      "indexSpecForIntermediatePersists": {
+        "bitmap": {
+          "type": "roaring",
+          "compressRunOnSerialization": true
+        },
+        "dimensionCompression": "lz4",
+        "metricCompression": "lz4",
+        "longEncoding": "longs",
+        "segmentLoader": null
+      },
+      "maxPendingPersists": 0,
+      "forceGuaranteedRollup": false,
+      "reportParseExceptions": false,
+      "pushTimeout": 0,
+      "segmentWriteOutMediumFactory": null,
+      "maxNumConcurrentSubTasks": 1,
+      "maxRetry": 3,
+      "taskStatusCheckPeriodMs": 1000,
+      "chatHandlerTimeout": "PT10S",
+      "chatHandlerNumRetries": 5,
+      "maxNumSegmentsToMerge": 100,
+      "totalNumMergeTasks": 10,
+      "logParseExceptions": false,
+      "maxParseExceptions": 2147483647,
+      "maxSavedParseExceptions": 1000,
+      "buildV9Directly": true,
+      "partitionDimensions": []
+    }}
+}

@@ -27,6 +27,9 @@ class KSBatchSql(object):
                 print(msg)
         self.mysql.close_cursor()
 
+    def execute_select_sql(self,str_sql,str_out_path,out_name):
+        self.export_csv(str_sql, str_out_path, out_name + ".csv")
+
     def execute_xls_sqls(self, str_sql_path, str_out_path):
         excel_sqls = xlrd.open_workbook(str_sql_path)
         sheet = excel_sqls.sheet_by_index(0)
