@@ -33,7 +33,7 @@
         "type": "uniform",
         "segmentGranularity": "DAY",
         "queryGranularity": "NONE",
-        "rollup": false,
+        "rollup": true,
         "intervals": null
       },
       "transformSpec": {

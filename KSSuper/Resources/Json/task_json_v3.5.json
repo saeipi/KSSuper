@@ -11,29 +11,53 @@
         "dimensions": [
           "city",
           "hire_mode",
+          "is_intern",
           "job_title",
           "name",
+          "offer_reply_status",
           "opened_at",
-          "receive_resume",
           "source",
           "source_type",
           "tags",
-          "is_intern",
-          "interview_status",
-          "interview_2_status",
-          "offer_application",
-          "offer_reply_status",
-          "offer_send",
-          "frist_filter_status",
-          "department_filter_status",
-          "entry"
+          {
+            "name": "receive_resume",
+            "type": "string"
+          },
+          {
+            "name": "interview_status",
+            "type": "string"
+          },
+          {
+            "name": "interview_2_status",
+            "type": "string"
+          },
+          {
+            "name": "offer_application",
+            "type": "string"
+          },
+          {
+            "name": "offer_send",
+            "type": "string"
+          },
+          {
+            "name": "frist_filter_status",
+            "type": "string"
+          },
+          {
+            "name": "department_filter_status",
+            "type": "string"
+          },
+          {
+            "name": "entry",
+            "type": "string"
+          }
         ]
       },
       "granularitySpec": {
         "type": "uniform",
         "segmentGranularity": "DAY",
         "queryGranularity": "NONE",
-        "rollup": false,
+        "rollup": true,
         "intervals": null
       },
       "transformSpec": {
@@ -70,7 +94,6 @@
         }},
       "inputFormat": {
         "type": "regex",
-        "findColumnsFromHeader": true,
         "pattern": "(.*)",
         "columns": [
           "city",

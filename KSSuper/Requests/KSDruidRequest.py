@@ -67,14 +67,14 @@ class KSDruidRequest(object):
 # data_source = "ks_test_data_02"
 # req.send_request(str_json_path, base_dir, data_source,None)
 
-str_xls_sql_path = os.path.abspath("../Resources/SQL/job_sql.xls")
-list_sqls = KSFile.read_xls_sql(str_xls_sql_path,1)
+#str_xls_sql_path = os.path.abspath("../Resources/SQL/job_sql_v1.0.xls")
+#list_sqls = KSFile.read_xls_sql(str_xls_sql_path,1)
 # print(list_sqls)
 # #list_sqls = ["SELECT * FROM Orders","SELECT * FROM Persons"]
 # req.send_mysql_request(str_json_path,data_source,list_sqls,None)
 
 req = KSDruidRequest()
-str_json_path = os.path.abspath("../Resources/Json/task_json_v2.0.json")
-data_source = "ks_test_data_13"
-# list_sqls = KSExportDruidSql.druid_sqls
+str_json_path = os.path.abspath("../Resources/Json/task_json_v3.0.json")
+data_source = "ks_test_data_25"
+list_sqls = KSExportDruidSql.druid_sqls
 req.send_mysql_request(str_json_path,data_source,list_sqls,None)
