@@ -23,8 +23,8 @@ class KSBatchSql(object):
             try:
                 self.mysql.cursor.execute(sql)
                 self.mysql.conn.commit()
-            except:
-                print("sql执行错误:"+sql)
+            except Exception as msg:
+                print(msg)
         self.mysql.close_cursor()
 
     def execute_xls_sqls(self, str_sql_path, str_out_path):

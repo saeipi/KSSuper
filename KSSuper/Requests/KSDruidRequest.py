@@ -59,17 +59,18 @@ class KSDruidRequest(object):
             print('HTTP Request failed')
     pass
 
-req = KSDruidRequest()
+# req = KSDruidRequest()
+
 # str_json_path = os.path.abspath("../Resources/Json/task_json.json")
 # base_dir = "/home/sa/apache-druid/datas/level"
 # data_source = "ks_test_data_02"
 # req.send_request(str_json_path, base_dir, data_source,None)
 
-str_json_path = os.path.abspath("../Resources/Json/task_json_v1.0.json")
-data_source = "ks_test_data_09"
-
-str_xls_sql_path = os.path.abspath("../Resources/SQL/job_sql.xls")
-list_sqls = KSFile.read_xls_sql(str_xls_sql_path,1)
-print(list_sqls)
-#list_sqls = ["SELECT * FROM Orders","SELECT * FROM Persons"]
-req.send_mysql_request(str_json_path,data_source,list_sqls,None)
+# str_json_path = os.path.abspath("../Resources/Json/task_json_v1.0.json")
+# data_source = "ks_test_data_10"
+#
+# str_xls_sql_path = os.path.abspath("../Resources/SQL/job_sql.xls")
+# list_sqls = KSFile.read_xls_sql(str_xls_sql_path,1)
+# print(list_sqls)
+# #list_sqls = ["SELECT * FROM Orders","SELECT * FROM Persons"]
+# req.send_mysql_request(str_json_path,data_source,list_sqls,None)

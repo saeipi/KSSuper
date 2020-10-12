@@ -3,6 +3,7 @@ from Import.KSImport import KSImport
 from Export.KSExport import KSExport
 from BatchSql.KSBatchSql import KSBatchSql
 from Requests.KSDruidRequest import KSDruidRequest
+from Singleton.KSSingleton import singleton
 
 class KSApplication(object):
     def __init__(self):
@@ -56,12 +57,12 @@ str_json_path = str_parent_path + "/Resources/Json/task_json.json"
 print(str_xls_sql_path)
 print(str_job_tag_path)
 
+app = KSApplication()
 '''
 1、导入数据
 '''
-app = KSApplication()
-str_import_path = "/Users/saeipi/Desktop/MyDatabase/1009data"
-app.import_csv_path(str_import_path)
+# str_import_path = "/Users/saeipi/Desktop/MyDatabase/1009data"
+# app.import_csv_path(str_import_path)
 
 # sql = "SELECT * FROM Orders"
 # out_path = "/Users/saeipi/Desktop/jobs"
@@ -71,17 +72,17 @@ app.import_csv_path(str_import_path)
 '''
 2、更新tag
 '''
-app.update_tag(str_job_tag_path)
+# app.update_tag(str_job_tag_path)
 
 '''
 3、查询并导出数据
 '''
-str_out_path = "/Users/saeipi/Desktop/jobs"
-app.execute_select(str_xls_sql_path, str_out_path)
+# str_out_path = "/Users/saeipi/Desktop/jobs"
+# app.execute_select(str_xls_sql_path, str_out_path)
 
 '''
 4、提交任务
 '''
-base_dir = "/home/sa/apache-druid/datas/level"
-data_source = "ks_test_data_03"
-app.request_druid_task(str_json_path,base_dir,data_source)
+# base_dir = "/home/sa/apache-druid/datas/level"
+# data_source = "ks_test_data_03"
+# app.request_druid_task(str_json_path,base_dir,data_source)

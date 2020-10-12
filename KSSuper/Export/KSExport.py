@@ -34,12 +34,14 @@ class KSExport(object):
         filename = str_out_path+"/"+str_out_name
         with codecs.open(filename=filename, mode='w', encoding='utf-8') as f:
             write = csv.writer(f, dialect='excel')
-            self.mysql.cursor.execute(str_sql)
-            results = self.mysql.cursor.fetchall()
-            df_file = pd.DataFrame(results)
-            df_file.to_csv(filename, index=False)
-        print(str_out_name+":导出成功")
-
+            try:
+                self.mysql.cursor.execute(str_sql)
+                results = self.mysql.cursor.fetchall()
+                df_file = pd.DataFrame(results)
+                df_file.to_csv(filename, index=False)
+                print(str_out_name + ":导出成功")
+            except Exception as msg:
+                print(msg)
 
 # my_export = KSExport()
 # sql = "SELECT * FROM Orders"
